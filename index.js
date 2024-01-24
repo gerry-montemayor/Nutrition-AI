@@ -12,10 +12,13 @@ const openai = new OpenAI({
 });
 
 const app = express();
+app.use(express.static('public'));
+
 const port = 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
+
 
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
@@ -25,20 +28,22 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 app.post("/", async (req, res) => {
-
-  const { message } = req.body;
-
+  const { messages } = req.body;
+  
   const chatCompletion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: `${message}` }],
+    messages: [
+      // { role: "user", content: `${message}` },
+      { "role": "system", "content": "You are NutritionGPT, a helpful nutrition advice assistant chatbot." },
+      ...messages
+    ],
+
   });
 
   res.json({
     completion: chatCompletion.choices[0].message
   })
-
 });
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
