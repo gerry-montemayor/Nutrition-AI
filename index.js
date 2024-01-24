@@ -2,10 +2,10 @@ import { OpenAI } from "openai"
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import path from "path"; // Import the 'path' module
+import path from "path";
+import chatGPTApiKey from "./config.js"
 
-const config = require('./config');
-const myApiKey = config.chatGPTApiKey;
+const myApiKey = chatGPTApiKey;
 
 const openai = new OpenAI({
   apiKey: `${myApiKey}`
