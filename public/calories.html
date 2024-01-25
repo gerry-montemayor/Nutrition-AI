@@ -10,29 +10,29 @@
 
 <body>
   <nav>
-    <form class="main-form" action="/home" method="POST">
+    <form class="back-home" action="/home" method="POST">
       <button type="submit">Back Home</button>
     </form>
-    <h1> Welcome to the calorie counter! </h1>
+    <p> NutritionAI </p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Calculator</p>
   </nav>
 
 
-  <form id="calories-form">
-    <label for="foods">Enter Individual Foods</label>
-    <input id="count-cals-submit" type="text" name="food">
-    <button type="submit">Submit Food to List</button>
-  </form>
-  <div id="entered-items">
+  <div class="calorie-calculator-container">
+    <form id="calories-form">
+      <label for="foods">Enter Individual Foods</label>
+      <input id="count-cals-submit" type="text" name="food">
+      <button style="display: none" type="submit">Submit Food to List</button>
+    </form>
 
 
+    <div id="entered-items"></div>
+
+    <form id="hidden-form" action="/calories" method="POST">
+      <input style="display: none" id="chat-count-cal" type="text" name="foods-to-count">
+      <button type="submit">Calculate Total Calories</button>
+    </form>
   </div>
-
-
-
-  <form action="/calories" method="POST">
-    <button type="submit">Calculate Total Calories</button>
-  </form>
-
 
 
 
@@ -43,6 +43,9 @@
 
   const foodForm = document.getElementById("calories-form");
   const inputField = document.getElementById("count-cals-submit");
+  const gptInputField = document.getElementById("chat-count-cal");
+
+  var setOfFoods = new Set();
 
   foodForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -51,6 +54,11 @@
     newElement.classList.add('food-list-item');
     newElement.innerHTML = `${enteredFood}`;
     enteredFoodsDisplay.appendChild(newElement);
+
+    setOfFoods.add(inputField.value);
+
+    gptInputField.value = setOfFoods;
+
     inputField.value = "";
   });
 
@@ -60,7 +68,7 @@
       foodForm.dispatchEvent(new Event("submit"));
     }
   });
-  
+
   const enteredFoodsDisplay = document.getElementById("entered-items");
 
 

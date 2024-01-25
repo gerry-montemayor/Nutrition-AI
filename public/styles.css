@@ -109,10 +109,14 @@ form {
   transition: transform 0.3s ease-in-out;
 }
 
+.option-container button img {
+  margin-bottom: 10px;
+}
+
 .option-title {
   font-family: "Roboto", sans-serif;
-  font-size: 45px;
-  color: #294B29;
+  font-size: 50px;
+  color: white;
   font-style: bold;
 }
 
@@ -139,16 +143,57 @@ form {
 nav {
   display: flex;
   height: 100px;
+  border: 5px solid #ffebcd;
+  border-radius: 20px;
   align-items: center;
   color: white;
+  margin: 10px;
+
+}
+
+nav p {
+  opacity: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 65px;
+  letter-spacing: 1px;
+  animation: fadeIn 2s forwards;
+  font-weight: 600;
+  color: #ffebcd;
 }
 
 #calories-form {
-  background-color: lightblue;
-  margin-bottom: 50px;
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 5px solid black;
+  margin-bottom: 30px;
+}
+
+#calories-form input {
+  height: 40px;
+  font-size: 30px;
+  margin: 5px;
+}
+
+.calorie-calculator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgray;
+  margin: 20px;
+  width: 600px;
+}
+
+#entered-items {
+  max-height: 300px;
+  overflow: auto;
+  width: 400px;
+  background-color: lightslategray
 }
 
 .food-list-item {
   background-color: orange;
-  height: 40px;
+  height: 20px;
 }

@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
     rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,14 +20,13 @@
 
   <div class="main-container">
     <div class="intro-container">
-      <p class="title">Welcome to NutritionAI</p>
+      <p class="title">Welcome to NutritionAI &#127793;</p>
       <p class="subtitle"> Your personal nutritionist.</p>
 
 
       <div class="option-container">
         <button id="calories-btn">
-          <img id="calculator-icon" src="./images/calculator_icon_.png">
-          <br/>
+          <img id="calculator-icon" src="./images/calc_icon.png">
           <p class="option-title">Calculator</p>
           <p class="option-description">Calories, BMI</p>
         </button>
@@ -50,10 +49,7 @@
 
     //Option button handlers
     document.getElementById("calories-btn").onclick = () => {
-      setTimeout(() => {
-        location.href = "./calories.html"
-      }, 1000);
-
+      location.href = "./calories.html"
     }
     document.getElementById("mealplan-btn").onclick = () => {
       location.href = "./mealplan.html"
