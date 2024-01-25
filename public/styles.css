@@ -1,18 +1,25 @@
+/* colors */
+/* background-color: #5a554c;  this is a light brown */
+
+
+
 * {
   margin: 0px;
   padding: 0px;
+
 }
 
 body {
   height: 100%;
-  background-color: #2c332d
-
+  background-color: #2c332d;
+  overflow: hidden;
 }
 
 @keyframes translateUp {
   from {
     transform: translateY(0px);
   }
+
   to {
     transform: translateY(-150px);
   }
@@ -22,6 +29,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -64,8 +72,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
-  animation:  translateUp 2.5s 3s forwards;
+  margin-top: 180px;
+  animation: translateUp 2.5s 3s forwards;
 
 }
 
@@ -80,27 +88,67 @@ form {
 .option-container {
   opacity: 0;
   display: flex;
-  justify-self: flex-end;
-  gap: 50px;
-  margin-top: 90px;
-  animation: fadeIn 2s 3.5s forwards;
-
+  gap: 80px;
+  animation: fadeIn 1.5s 4s forwards;
+  margin-top: 40px;
 }
 
 
 .option-container button {
-  width: 180px;
-  height: 180px;
-  background-color: #878583;
-  opacity: .7;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 30px;
+  width: 280px;
+  height: 320px;
+  background-color: #5a554c;
   border-style: none;
   border: 6px solid #ffebcd;
-  border-radius: 25px;
+  border-radius: 10px;
   transition: transform 0.3s ease-in-out;
+}
+
+.option-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 45px;
+  color: #294B29;
+  font-style: bold;
+}
+
+.option-description {
+  font-family: "Playfair Display", serif;
+
+  font-style: bold;
+  font-size: 20px;
+  color: white;
 }
 
 .option-container button:hover {
   transform: scale(1.1);
 }
 
+.option-container button::selection {
+  transform: translateX(35px);
+}
 
+#calculator-icon {
+  width: 170px;
+}
+
+nav {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  color: white;
+}
+
+#calories-form {
+  background-color: lightblue;
+  margin-bottom: 50px;
+}
+
+.food-list-item {
+  background-color: orange;
+  height: 40px;
+}

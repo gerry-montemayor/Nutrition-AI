@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
+  <nav>
+    <form class="main-form" action="/home" method="POST">
+      <button type="submit">Back Home</button>
+    </form>
     <h1> Welcome to the calorie counter! </h1>
+  </nav>
+
+
+  <form id="calories-form">
+    <label for="foods">Enter Individual Foods</label>
+    <input id="count-cals-submit" type="text" name="food">
+    <button type="submit">Submit Food to List</button>
+  </form>
+  <div id="entered-items">
+
+
+  </div>
+
+
+
+  <form action="/calories" method="POST">
+    <button type="submit">Calculate Total Calories</button>
+  </form>
+
+
+
+
 </body>
+
+
+<script>
+
+  const foodForm = document.getElementById("calories-form");
+  const inputField = document.getElementById("count-cals-submit");
+
+  foodForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const enteredFood = inputField.value;
+    const newElement = document.createElement('div');
+    newElement.classList.add('food-list-item');
+    newElement.innerHTML = `${enteredFood}`;
+    enteredFoodsDisplay.appendChild(newElement);
+    inputField.value = "";
+  });
+
+  inputField.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      foodForm.dispatchEvent(new Event("submit"));
+    }
+  });
+  
+  const enteredFoodsDisplay = document.getElementById("entered-items");
+
+
+
+
+
+
+  // let messages = []
+
+  // const chatLog = document.getElementById('chat-log');
+  // const message = document.getElementById('foods-entered')
+
+  // const form = document.querySelector('form');
+
+
+  // //Upon submission, create message from entered list
+  // form.addEventListener('submit', (e) => {
+  //   e.preventDefault();
+
+  //   const enteredList = message.value;
+
+  //   const newMessage = {
+  //     "role": "user",
+  //     "content": `${enteredList}`
+  //   }
+  //   messages.push(newMessage);
+
+  //   //display entered list to user again
+  // })
+
+
+
+</script>
+
 </html>

@@ -8,10 +8,8 @@ import chatGPTApiKey from "./config.js"
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const myApiKey = chatGPTApiKey;
-
 const openai = new OpenAI({
-  apiKey: `${myApiKey}`
+  apiKey: `${chatGPTApiKey}`
 });
 
 const app = express();
@@ -25,7 +23,9 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 
-
+app.post("/home", (req,res) => {
+  res.redirect("/");
+})
 
 
 app.post("/mealplan", async (req, res) => {
@@ -45,6 +45,8 @@ app.post("/mealplan", async (req, res) => {
     completion: chatCompletion.choices[0].message
   })
 });
+
+
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

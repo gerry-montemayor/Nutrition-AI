@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
     rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,7 +25,12 @@
 
 
       <div class="option-container">
-        <button id="calories-btn">Calorie Counter</button>
+        <button id="calories-btn">
+          <img id="calculator-icon" src="./images/calculator_icon_.png">
+          <br/>
+          <p class="option-title">Calculator</p>
+          <p class="option-description">Calories, BMI</p>
+        </button>
         <button id="mealplan-btn">Meal Planner</button>
         <button id="recipes-btn">Recipes</button>
       </div>
@@ -45,9 +53,9 @@
       setTimeout(() => {
         location.href = "./calories.html"
       }, 1000);
-      
+
     }
-    document.getElementById("mealplan-btn").onclick =() => {
+    document.getElementById("mealplan-btn").onclick = () => {
       location.href = "./mealplan.html"
     }
 
@@ -80,8 +88,6 @@
 
       message.value = "";
       const messageElement = document.createElement('div');
-      messageElement.classList.add('message');
-      messageElement.classList.add('message--sent');
       messageElement.innerHTML = `
         <div class="message__text">${messageText}</div>
       `;
