@@ -52,8 +52,7 @@ app.post("/calories", async (req, res) => {
   const chatCompletion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      // { role: "user", content: `${message}` },
-      { "role": "system", "content": "You will receive a list of food items. Please approximate the total calories based on the list, and return a number. Please make sure to return just a number and nothing else. Thanks!" },
+      { "role": "system", "content":  "You are a calorie counter. Your responses are limited to just a number. You'll be given lists of food items without calorie counts. Assume one item per entry. If count of an item is confusing, assume just one of said item. Calculate and return the total calories. I want to emphasize again that you must only return just a number. Do not return any words before or after the number." },
       ...messages
     ],
 
