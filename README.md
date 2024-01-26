@@ -1,5 +1,5 @@
-# NutritionAI
-## a nutrition assistant - powered by ChatGPT
+# NutritionAI 🌱
+a nutrition assistant - powered by ChatGPT
 
 Welcome to NutritionAI! This is a full-stack project that communicates with ChatGPT's API.
 
