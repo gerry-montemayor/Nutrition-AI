@@ -23,7 +23,7 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/home", (req,res) => {
+app.post("/home", (req, res) => {
   res.redirect("/");
 })
 
@@ -36,6 +36,24 @@ app.post("/mealplan", async (req, res) => {
     messages: [
       // { role: "user", content: `${message}` },
       { "role": "system", "content": "You are NutritionGPT, a helpful nutrition advice assistant chatbot." },
+      ...messages
+    ],
+
+  });
+
+  res.json({
+    completion: chatCompletion.choices[0].message
+  })
+});
+
+app.post("/calories", async (req, res) => {
+  const { messages } = req.body;
+
+  const chatCompletion = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      // { role: "user", content: `${message}` },
+      { "role": "system", "content": "You will receive a list of food items. Please approximate the total calories based on the list, and return a number. Please make sure to return just a number and nothing else. Thanks!" },
       ...messages
     ],
 

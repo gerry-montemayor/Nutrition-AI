@@ -12,8 +12,10 @@
   <form class="main-form" action="">
     <label for="age">Age</label>
     <input type="text" name="age" id="age">
-    <label for="message">Chat with me!</label>
 
+
+
+    <label for="message">Chat with me!</label>
     <input type="text" name="message" id="message">
     <button type="submit">Send</button>
   </form>
@@ -50,7 +52,7 @@
   `;
       chatLog.appendChild(messageElement);
       chatLog.scrollTop = chatLog.scrollHeight;
-      fetch('http://localhost:3000/mealplan', {
+      fetch('/mealplan', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

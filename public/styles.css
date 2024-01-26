@@ -161,39 +161,73 @@ nav p {
   color: #ffebcd;
 }
 
-#calories-form {
-  width: 90%;
-  height: fit-content;
+#calculator-container {
+  background-color: #5a554c;
+  border: 7px solid #ffebcd;
+  border-radius: 20px;
+  height: 530px;
+  margin: 20px;
+  width: 600px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  border: 5px solid black;
-  margin-bottom: 30px;
+  align-items: center;
+}
+
+#calories-form {
+  margin-top: 20px;
+  width: 80%;
+  display: flex;
+  gap: 20px;
+}
+
+#calories-form label {
+  font-size: 30px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: white;
 }
 
 #calories-form input {
-  height: 40px;
-  font-size: 30px;
-  margin: 5px;
+  width: 80%;
+  height: 50px;
+  font-size: 20px;
+  border: 8px solid rgb(93, 63, 22)
 }
 
-.calorie-calculator-container {
+.calc-description {
+  margin: 10px;
+  height: fit-content;
+  font-size: 23px;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+
+#input-form {
+  flex-direction: row;
+  background-color: lightblue;
+  width: fit-content;
+  height: 30px;
+}
+
+
+#list-output {
+  background-color: #F2F3F5;
+  margin: 20px;
+  padding: 20px;
+  width: 80%;
+  height: 250px;
+  overflow: auto;
+  border: 4px solid black;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: lightgray;
-  margin: 20px;
-  width: 600px;
+  align-items: flex-start;
+  justify-content: left;
 }
 
-#entered-items {
-  max-height: 300px;
-  overflow: auto;
-  width: 400px;
-  background-color: lightslategray
-}
+li {
+  margin-left: 20px;
 
-.food-list-item {
-  background-color: orange;
-  height: 20px;
 }

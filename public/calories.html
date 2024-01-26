@@ -17,87 +17,108 @@
     <p class="subtitle" style="margin-left: 20px"> ~ Calculator</p>
   </nav>
 
+  <div id="calculator-container">
 
-  <div class="calorie-calculator-container">
-    <form id="calories-form">
-      <label for="foods">Enter Individual Foods</label>
-      <input id="count-cals-submit" type="text" name="food">
-      <button style="display: none" type="submit">Submit Food to List</button>
+    <p class="calc-description">This is the Calorie Calculator! Please enter a list of food items. Try to be
+      as specific as you can when entering your data, for example: two apples, a medium steak, etc.
+    </p>
+
+
+    <form id="input-form" action="">
+      <input type="text" name="foods-input" id="foods-input">
+      <button type="submit">Submit Food</button>
+    </form>
+    <ul id="list-output">
+
+    </ul>
+    
+
+
+
+    <form id="calories-form" action="">
+      <label style="display: none" for="message">Enter Foods: </label>
+      <input style="display: none"type="text" name="message" id="message">
+      <button type="submit">Calculate Calories</button>
     </form>
 
+    <div id="chat-log"></div>
 
-    <div id="entered-items"></div>
 
-    <form id="hidden-form" action="/calories" method="POST">
-      <input style="display: none" id="chat-count-cal" type="text" name="foods-to-count">
-      <button type="submit">Calculate Total Calories</button>
-    </form>
   </div>
-
-
-
 </body>
-
 
 <script>
 
-  const foodForm = document.getElementById("calories-form");
-  const inputField = document.getElementById("count-cals-submit");
-  const gptInputField = document.getElementById("chat-count-cal");
+  var messageToSend = "";
 
-  var setOfFoods = new Set();
+  //the form user types in foods
+  const inputForm = document.getElementById("input-form");
+  //the input element of the form
+  const userInput = document.getElementById("foods-input");
 
-  foodForm.addEventListener('submit', (e) => {
+  //the list element that holds all inputs
+  const foodListDiv = document.getElementById("list-output")
+
+  const chatLog = document.getElementById("chat-log");
+  const message = document.getElementById("message");
+  const caloriesForm = document.getElementById("calories-form");
+
+
+
+  inputForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const enteredFood = inputField.value;
-    const newElement = document.createElement('div');
-    newElement.classList.add('food-list-item');
-    newElement.innerHTML = `${enteredFood}`;
-    enteredFoodsDisplay.appendChild(newElement);
+    var inputFood = userInput.value;
+    messageToSend+=` ${inputFood},`;
+    userInput.value="";
 
-    setOfFoods.add(inputField.value);
+    const listElement = document.createElement('li');
+    listElement.innerHTML = `${inputFood}`
+    foodListDiv.appendChild(listElement);
+    message.value = messageToSend;
+  })
 
-    gptInputField.value = setOfFoods;
 
-    inputField.value = "";
-  });
 
-  inputField.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      foodForm.dispatchEvent(new Event("submit"));
+
+  let messages = []
+
+  caloriesForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    messageToSend = "";
+
+    const messageText = message.value;
+
+    const newMessage = {
+      "role": "user",
+      "content": `${messageText}`
     }
-  });
+    messages.push(newMessage);
 
-  const enteredFoodsDisplay = document.getElementById("entered-items");
+    message.value = "s"
+    const messageElement = document.createElement('div');
+    messageElement.innerHTML = `<div> ${messageText}</div>`
+    chatLog.appendChild(messageElement);
 
+    fetch('/calories', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({ messages })
+    }).then(res => res.json())
+      .then(data => {
+        let newAssistantMessage = { "role": "assistant", "content": `${data.completion.content}` }
+        messages.push(newAssistantMessage);
+        const messageText = message.value;
+        message.value = "";
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `<div>${data.completion.content}</div>`;
+        chatLog.appendChild(messageElement);
 
+      })
 
+  })
 
-
-
-  // let messages = []
-
-  // const chatLog = document.getElementById('chat-log');
-  // const message = document.getElementById('foods-entered')
-
-  // const form = document.querySelector('form');
-
-
-  // //Upon submission, create message from entered list
-  // form.addEventListener('submit', (e) => {
-  //   e.preventDefault();
-
-  //   const enteredList = message.value;
-
-  //   const newMessage = {
-  //     "role": "user",
-  //     "content": `${enteredList}`
-  //   }
-  //   messages.push(newMessage);
-
-  //   //display entered list to user again
-  // })
 
 
 

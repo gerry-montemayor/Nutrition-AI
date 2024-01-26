@@ -33,14 +33,6 @@
         <button id="mealplan-btn">Meal Planner</button>
         <button id="recipes-btn">Recipes</button>
       </div>
-
-
-
-
-
-
-
-
     </div>
   </div>
   <script>
@@ -58,58 +50,6 @@
     document.getElementById("recipes-btn").onclick = () => {
       location.href = "./recipes.html"
     }
-
-    //ChatGPT API Logic
-
-
-    let messages = []
-
-    const chatLog = document.getElementById('chat-log');
-    const message = document.getElementById('message');
-    const form = document.querySelector('form');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      //customize message here: plan is to be able to input your age, weight, etc
-      // also will involve a calorie tracker/calculator
-
-
-      const messageText = message.value;
-
-      const newMessage = {
-        "role": "user",
-        "content": `${messageText}`
-      }
-      messages.push(newMessage);
-
-      message.value = "";
-      const messageElement = document.createElement('div');
-      messageElement.innerHTML = `
-        <div class="message__text">${messageText}</div>
-      `;
-      chatLog.appendChild(messageElement);
-      chatLog.scrollTop = chatLog.scrollHeight;
-      fetch('http://localhost:3000', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          messages
-        })
-      }).then(res => res.json())
-        .then(data => {
-          let newAssistantMessage = { "role": "assistant", "content": `${data.completion.content}` }
-          messages.push(newAssistantMessage);
-          const messageText = message.value;
-          message.value = "";
-          const messageElement = document.createElement('div');
-          messageElement.innerHTML = `<div class="message__text">${data.completion.content}</div>`;
-          chatLog.appendChild(messageElement);
-          chatLog.scrollTop = chatLog.scrollHeight;
-
-        })
-    })
 
   </script>
 
