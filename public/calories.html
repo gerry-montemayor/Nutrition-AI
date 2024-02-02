@@ -76,7 +76,7 @@
   inputForm.addEventListener('submit', (e) => {
     e.preventDefault();
     var inputFood = userInput.value;
-    messageToSend += ` a ${inputFood},`;
+    messageToSend += `${inputFood},`;
     userInput.value = "";
 
     const listElement = document.createElement('li');

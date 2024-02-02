@@ -63,40 +63,49 @@ Frequency of eating out or cooking at home -->
 
   <div class="mealplan-container">
 
-    <p class="subtitle" style="margin: 0; opacity: 1;animation: none;">Get a personalized plan.</p>
+    <p class="subtitle" style="margin: 0; opacity: 1;animation: none;">Fill out the form!</p>
 
     <form class="plan-form" id="plan-form">
 
-      <label for="age">Age</label>
-      <input type="text" name="age" id="age">
+      <div class="form-topic">
+        <label for="age">Age</label>
+        <input type="text" name="age" id="age">
+      </div>
 
-      <label for="gender">Gender</label>
-      <select id="gender" name="gender">
-        <option></option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+      <div class="form-topic">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+          <option></option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
 
-      <label for="height">Height (inches) </label>
-      <input type="text" name="height" id="height">
+      <div class="form-topic">
+        <label for="height">Height (inches) </label>
+        <input type="text" name="height" id="height">
+      </div>
 
-      <label for="weight">Weight (Ibs.) </label>
-      <input type="text" name="weight" id="weight">
+      <div class="form-topic">
+        <label for="weight">Weight (Ibs.) </label>
+        <input type="text" name="weight" id="weight">
+      </div>
 
+      <div class="form-topic">
+        <label for="activity-lvl">Activity Level</label>
+        <select id="activity-lvl" name="activity-lvl">
+          <option></option>
+          <option value="barely">Barely Active</option>
+          <option value="light">Lightly Active</option>
+          <option value="light">Moderately Active</option>
+          <option value="light">Very Active</option>
+        </select>
+      </div>
 
-      <label for="activity-lvl">Activity Level</label>
-      <select id="activity-lvl" name="activity-lvl">
-        <option></option>
-        <option value="barely">Barely Active</option>
-        <option value="light">Lightly Active</option>
-        <option value="light">Moderately Active</option>
-        <option value="light">Very Active</option>
-      </select>
-
-      <label for="user-goal">What's your goal? (Eg. lose weight)</label>
-      <input type="text" name="user-goal" id="user-goal">
-
-      <br />
+      <div class="form-topic">
+        <label for="user-goal">What's your goal? (Eg. lose weight)</label>
+        <input type="text" name="user-goal" id="user-goal">
+      </div>
       <button type="submit" id="submit-info">Get Your Personal Plan</button>
   </div>
   </form>

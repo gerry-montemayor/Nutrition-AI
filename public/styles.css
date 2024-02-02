@@ -72,7 +72,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 180px;
+  margin-top: 230px;
   animation: translateUp 2.5s 3s forwards;
 
 }
@@ -90,7 +90,7 @@ form {
   display: flex;
   gap: 80px;
   animation: fadeIn 1.5s 4s forwards;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 
@@ -100,8 +100,8 @@ form {
   justify-content: flex-start;
   align-items: center;
   padding-top: 30px;
-  width: 280px;
-  height: 320px;
+  width: 330px;
+  height: 340px;
   background-color: #5a554c;
   border-style: none;
   border: 6px solid #ffebcd;
@@ -136,7 +136,7 @@ form {
   transform: translateX(35px);
 }
 
-#calculator-icon {
+.icon {
   width: 170px;
 }
 
@@ -401,3 +401,16 @@ li {
 .flex-col {
   flex-direction: column;
 }
+
+.plan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-topic {
+  display: flex;
+  gap: 20px;
+  width: 350px;
+}
+
