@@ -5,29 +5,285 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
 </head>
 
-<body>
-  <h1>Meal Planner</h1>
+<!-- Basic Information:
+
+Age
+Gender
+Height
+Weight
+Activity level (sedentary, lightly active, moderately active, very active)
+Goals:
+
+Weight loss, maintenance, or gain
+Target weight or body composition goals
+Dietary Preferences and Restrictions:
+
+Vegetarian, vegan, omnivore, etc.
+Food allergies or intolerances
+Religious or cultural dietary restrictions
+Current Eating Habits:
+
+Typical daily calorie intake
+Typical macronutrient intake (protein, carbohydrates, fats)
+Current water intake
+Medical and Health Information:
+
+Any medical conditions (diabetes, high blood pressure, etc.)
+Medications that might affect diet or metabolism
+Any specific nutritional needs or considerations
+Activity and Exercise:
+
+Type and frequency of exercise
+Intensity and duration of workouts
+Lifestyle Factors:
+
+Stress levels
+Sleep patterns
+Other lifestyle factors that might affect diet or metabolism
+Food Preferences:
+
+Favorite foods or dislikes
+Preferred cooking methods
+Frequency of eating out or cooking at home -->
+
+
+
+<body style="padding-top: 10px; overflow: auto">
+  <nav>
+    <form class="back-home" action="/home" method="POST">
+      <button type="submit"> <img src="./images/home_icon.png"></button>
+    </form>
+    <p> NutritionAI </p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Your Nutrition Plan</p>
+  </nav>
+
+
+  <div class="mealplan-container">
+
+    <p class="subtitle" style="margin: 0; opacity: 1;animation: none;">Get a personalized plan.</p>
+
+    <form class="plan-form" id="plan-form">
+
+      <label for="age">Age</label>
+      <input type="text" name="age" id="age">
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender">
+        <option></option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <label for="height">Height (inches) </label>
+      <input type="text" name="height" id="height">
+
+      <label for="weight">Weight (Ibs.) </label>
+      <input type="text" name="weight" id="weight">
+
+
+      <label for="activity-lvl">Activity Level</label>
+      <select id="activity-lvl" name="activity-lvl">
+        <option></option>
+        <option value="barely">Barely Active</option>
+        <option value="light">Lightly Active</option>
+        <option value="light">Moderately Active</option>
+        <option value="light">Very Active</option>
+      </select>
+
+      <label for="user-goal">What's your goal? (Eg. lose weight)</label>
+      <input type="text" name="user-goal" id="user-goal">
+
+      <br />
+      <button type="submit" id="submit-info">Get Your Personal Plan</button>
+  </div>
+  </form>
+  <div class="plans-container no-display">
+    <div id="breakfast-container" class="plan">
+
+
+    </div>
+    <div id="lunch-container" class="plan">
+
+
+    </div>
+    <div id="dinner-container" class="plan">
+
+
+    </div>
+  </div>
+
+  <div id="advice-container" class="no-display">
+    <div id="return-to-top" class="no-display">
+      <div id="general-advice">
+
+      </div>
+      <button id="return-top-btn">Back to Top</button>
+    </div>
+  </div>
+
+
+  <script>
+
+
+
+    const submitBtn = document.getElementById("submit-info");
+    const plansContainer = document.getElementsByClassName("plans-container")[0];
+
+    const userForm = document.getElementById("plan-form");
+
+
+    const returnToTop = document.getElementById("return-to-top");
+    const returnToTopBtn = document.getElementById("return-top-btn");
+    const adviceContainer = document.getElementById("advice-container");
+
+    const breakfastContainer = document.getElementById("breakfast-container");
+    const lunchContainer = document.getElementById("lunch-container");
+    const dinnerContainer = document.getElementById("dinner-container");
+
+
+    returnToTopBtn.addEventListener('click', (e) => {
+      document.body.scrollIntoView({ behavior: "smooth" })
+      returnToTop.classList.add("no-display");
+
+
+    })
+
+
+    const genderInput = document.getElementById("gender");
+    const ageInput = document.getElementById("age");
+    const heightInput = document.getElementById("height");
+    const excerciseInput = document.getElementById("activity-lvl")
+    const goalInput = document.getElementById("user-goal");
+    const weightInput = document.getElementById("weight")
+
+    let messages = []
+
+
+
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      //catch bad inputs
+      try {
+
+        const userGender = genderInput.value;
+        if (userGender !== 'female' && userGender !== 'male') {
+          throw e;
+        }
+
+        const userAge = ageInput.value;
+        if (isNaN(ageInput.value) == true || ageInput.value === "") {
+          throw e;
+        }
+
+        const userHeight = heightInput.value;
+        if (isNaN(heightInput.value) == true || heightInput.value === "") {
+          throw e;
+        }
+
+        const userExcercise = excerciseInput.value;
+        if (userExcercise === "") {
+          throw e;
+        }
+
+        const userGoal = goalInput.value;
+        if (userGoal === "") {
+          throw e;
+        }
+
+        const userWeight = weightInput.value;
+        if (isNaN(weightInput.value) == true || weightInput.value === "") {
+          throw e;
+        }
+
+        plansContainer.classList.remove("no-display");
+        returnToTop.classList.remove("no-display");
+        adviceContainer.classList.remove("no-display");
+        adviceContainer.classList.add("flex");
+        adviceContainer.classList.add("flex-col");
+        returnToTop.classList.add("flex");
+        plansContainer.scrollIntoView({ behavior: "smooth" });
+
+
+        const messageText = `Here is the profile. I am a ${userGender} and ${userAge} `
+          + `years old. I am ${userHeight} inches tall, and weigh ${userWeight} pounds.`
+          + ` I also am ${userExcercise}.`
+
+        const newMessage = {
+          "role": "user",
+          "content": `${messageText}`
+        }
+        messages.push(newMessage);
+
+        fetch('/mealplan', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({ messages })
+        }).then(res => res.json())
+          .then(data => {
+            let gptResponse = data.completion.content;
+            let jsonResponse = JSON.parse(gptResponse);
+
+            let breakfastPlan = jsonResponse.breakfast;
+            let lunchPlan = jsonResponse.lunch;
+            let dinnerPlan = jsonResponse.dinner;
+
+            const breakfastElement = document.createElement('p');
+            breakfastElement.innerHTML = `${breakfastPlan}`
+
+            const lunchElement = document.createElement('p');
+            lunchElement.innerHTML = `${lunchPlan}`
+
+            const dinnerElement = document.createElement('p');
+            dinnerElement.innerHTML = `${dinnerPlan}`
+
+            breakfastContainer.appendChild(breakfastElement);
+            lunchContainer.appendChild(lunchElement);
+            dinnerContainer.appendChild(dinnerElement);
+
+          })
+
+      } catch (e) {
+        console.log("WHOOPS")
+      }
+
+
+
+
+
+
+
+
+    })
+
+
+
+  </script>
+
+  <!-- 
   <form class="main-form" action="">
     <label for="age">Age</label>
     <input type="text" name="age" id="age">
-
 
 
     <label for="message">Chat with me!</label>
     <input type="text" name="message" id="message">
     <button type="submit">Send</button>
   </form>
-  <div id="chat-log"></div>
-  <script>
+  <div id="chat-log"></div> -->
+  <!-- <script>
     let messages = []
 
     const chatLog = document.getElementById('chat-log');
     const message = document.getElementById('message');
 
     const form = document.querySelector('form');
-    
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -73,7 +329,7 @@
 
         })
     })
-  </script>
+  </script> -->
 </body>
 
 </html>
