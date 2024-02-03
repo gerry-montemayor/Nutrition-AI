@@ -4,7 +4,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import chatGPTApiKey from "./config.js"
+import { chatGPTApiKey, foodDataApiKey } from "./config.js"
+import request from "request";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -84,12 +85,26 @@ app.post("/calories", async (req, res) => {
     ],
 
   });
-
   res.json({
     completion: chatCompletion.choices[0].message
   })
 });
 
+
+app.post('/nutrition', (req, res) => {
+  const query = req.body.query;
+  const apiUrl = 'https://api.api-ninjas.com/v1/nutrition?query=' + query;
+
+  request(apiUrl, {
+    headers: {
+      'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' // Replace 'YOUR_API_KEY' with your actual API key
+    }
+  }, (response, body) => {
+
+    res.json(body);
+  }
+  );
+});
 
 
 app.listen(port, () => {

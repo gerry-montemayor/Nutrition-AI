@@ -4,11 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NutritionAI</title>
+  <title>Document</title>
   <link rel="stylesheet" href="./styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital@0;1&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -18,136 +15,96 @@
       <button type="submit"> <img src="./images/home_icon.png"></button>
     </form>
     <p> NutritionAI </p>
-    <p class="subtitle" style="margin-left: 20px"> ~ Calculator</p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Food Facts</p>
   </nav>
-  <div id="main-calculator-container">
-    <div id="calculator-container">
 
-      <p class="calc-description">This is the Calorie Calculator! Please enter a list of food items. Try to be
-        as specific as you can when entering your data, for example: two apples, a medium steak, etc.
-      </p>
+  <div class="main-foodfacts-container">
+    <form style="display: flex; flex-direction: row; width: max-content; margin-top: 10px;">
+      <label for="food">Enter Food:</label>
+      <input type="text" name="food" id="food" style="width: 200px;">
+      <label for="count">Count:</label>
+      <input type="number" name="count" id="count">
 
+      <button type="submit" id="food-data-submit">Submit</button>
+    </form>
 
-      <form id="input-form" action="">
-        <input type="text" name="foods-input" id="foods-input">
-        <button type="submit">Submit</button>
-      </form>
-      <ul id="list-output">
+    <div class="foodfacts-container">
+      <div id="single-food-fact-container" class="foodfacts">
+        <div class="single-food-info">
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <p class="nutrition-facts-title">Nutrition Facts: </p>
+            <p class="nutrition-facts-title" style="text-decoration: none; margin-left: 10px; font-size: 25px;"> *Food Name*</p>
+          </div>
+          </br>
+          <div class="nutrition-facts-text"
+            style="width: 100%;margin-left: 50px; display: flex; flex-direction: column; align-items: flex-start; height: 400px; gap: 8px;">
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
 
-      </ul>
+            <p>Calories: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+            <p>Serving Size: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
 
+            <p>Protein: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
 
-      <div class="chat-response-container">
-        <form id="calories-form" action="">
-          <input style="display: none" type="text" name="message" id="message">
-          <button type="submit">Calculate Calories</button>
+            <p>Sodium: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
 
-        </form>
-        <div id="chat-log">
+            <p>Potassium: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p>Cholesterol: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p>Carbohydrates: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p>Fiber: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p>Sugar: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+          </div>
 
         </div>
       </div>
+      <div id="calorie-count-container" class="foodfacts">
+
+      </div>
     </div>
+
+
   </div>
-</body>
-
-<script>
 
 
-  var submitted = false;
-  var isNewPrompt = true;
+  <script>
+    const submitForm = document.getElementById("food-data-submit");
+    const foodInput = document.getElementById("food")
 
-  var messageToSend = "";
+    submitForm.addEventListener('click', (e) => {
+      e.preventDefault();
 
-  //the form user types in foods
-  const inputForm = document.getElementById("input-form");
-  //the input element of the form
-  const userInput = document.getElementById("foods-input");
-
-  //the list element that holds all inputs
-  const foodListDiv = document.getElementById("list-output")
-
-  const chatLog = document.getElementById("chat-log");
-  const message = document.getElementById("message");
-  const caloriesForm = document.getElementById("calories-form");
-
-
-
-  inputForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    var inputFood = userInput.value;
-    messageToSend += `${inputFood},`;
-    userInput.value = "";
-
-    const listElement = document.createElement('li');
-    listElement.innerHTML = `${inputFood}`
-    foodListDiv.appendChild(listElement);
-    message.value = messageToSend;
-  })
-
-  userInput.addEventListener('click', () => {
-    if (submitted) {
-      foodListDiv.innerHTML = "";
-      chatLog.innerHTML = "";
-      isNewPrompt = true;
-      submitted = false;
-    }
-  })
-
-
-
-
-  let messages = []
-
-  caloriesForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!isNewPrompt) {
-      chatLog.innerHTML = "";
-      foodListDiv.innerHTML = "";
-      messageToSend = "";
-      isNewPrompt = true;
-    } else {
-      isNewPrompt = false;
-      submitted = true;
-      messageToSend = "";
-
-      const messageText = message.value;
-
-      const newMessage = {
-        "role": "user",
-        "content": `${messageText}`
-      }
-      messages.push(newMessage);
-
-      message.value = ""
-      const messageElement = document.createElement('div');
-      messageElement.innerHTML = `<div> ${messageText}</div>`
-      // chatLog.appendChild(messageElement);
-
-      fetch('/calories', {
+      fetch('/nutrition', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ messages })
-      }).then(res => res.json())
-        .then(data => {
-          let newAssistantMessage = { "role": "assistant", "content": `${data.completion.content}` }
-          messages.push(newAssistantMessage);
-          const messageText = message.value;
-          message.value = "";
-          const messageElement = document.createElement('div');
-          messageElement.innerHTML = `<div>${data.completion.content} calories </div>`;
-          chatLog.appendChild(messageElement);
-
-        })
-    }
-
-  })
+        body: JSON.stringify({ query: `${foodInput.value}` })
+      }).then(res => {
+        return res.json();
+      }).then(data => {
+        console.log(data);
+      })
+    })
 
 
 
 
-</script>
+
+  </script>
+
+</body>
 
 </html>
