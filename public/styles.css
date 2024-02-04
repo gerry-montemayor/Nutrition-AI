@@ -415,7 +415,6 @@ li {
 }
 
 .main-foodfacts-container {
-  background-color: orange;
   width: 90%;
   height: 550px;
   margin-left: 5%;
@@ -429,7 +428,6 @@ li {
 .foodfacts-container {
   height: 100%;
   width: 100%;
-  background-color: red;
   display: flex;
   gap: 20px;
   justify-content: center;
@@ -437,17 +435,19 @@ li {
 }
 
 .foodfacts {
-  width: 650px;
-  background-color: #1f2821;
-  height: 500px;
-  border: 5px solid white;
+  width: 600px;
+  background-color: #a28d6c;
+  height: 460px;
+  border: 5px solid #2c210d;
+
 
 }
 
 .single-food-info {
   background-color: white;
   margin: 20px;
-  width: 600px;
+  margin-top: 0;
+  width: 550px;
   height: 460px;
   border-radius: 25px;
   display: flex;
@@ -472,3 +472,92 @@ li {
   font-weight: 600;
 }
 
+#food-submit-form {
+  background-color: #1f2821;
+  border: 5px solid white;
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  justify-content: flex-start;
+  gap: 10px;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  height: 30px;
+}
+
+
+
+.food-single-container {
+  width: 98%;
+  background-color: white;
+  border: 5px solid black;
+  min-height: 70px;
+  max-height: 70px;
+  margin: none;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+}
+
+.food-single-container:hover {
+  background-color: #a9acb3;
+}
+
+#added-up-foods-container {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.food-title {
+  margin-left: 30px;
+  font-size: 22px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  width: fit-content
+}
+
+.food-calories {
+  position: absolute;
+  left: 230px;
+  width: fit-content;
+  font-size: 25px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+}
+
+.delete-food-btn {
+  position: absolute;
+  left: 520px;
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(222, 69, 69);
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 25px;
+  padding: 5px;
+
+}
+
+.delete-food-btn:hover {
+  background-color: rgb(152, 13, 13)
+}
+
+#calorie-sum {
+  white-space: pre;
+  position: left;
+  margin-left: 20px;
+  color: white;
+  font-size: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  width: 100%;
+
+}
