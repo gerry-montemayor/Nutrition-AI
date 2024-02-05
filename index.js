@@ -6,6 +6,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { chatGPTApiKey, foodDataApiKey } from "./config.js"
 import request from "request";
+import axios from "axios";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -91,20 +92,40 @@ app.post("/calories", async (req, res) => {
 });
 
 
-app.post('/nutrition', (req, res) => {
+// app.post('/nutrition', (req, res) => {
+//   const query = req.body.query;
+//   const apiUrl = 'https://api.api-ninjas.com/v1/nutrition?query=' + query;
+
+//   request(apiUrl, {
+//     headers: {
+//       'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' // Replace 'YOUR_API_KEY' with your actual API key
+//     }
+//   }, (response, body) => {
+
+//     res.json(body);
+//   }
+//   );
+// });
+
+
+app.post('/nutrition', async (req, res) => {
   const query = req.body.query;
   const apiUrl = 'https://api.api-ninjas.com/v1/nutrition?query=' + query;
 
-  request(apiUrl, {
-    headers: {
-      'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' // Replace 'YOUR_API_KEY' with your actual API key
-    }
-  }, (response, body) => {
+  try {
+    const response = await axios.get(apiUrl, {
+      headers: { 'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' },
+    });
 
-    res.json(body);
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching data');
   }
-  );
 });
+
+
+
+
 
 
 app.listen(port, () => {

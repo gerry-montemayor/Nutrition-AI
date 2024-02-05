@@ -174,7 +174,8 @@
         }).then(data => {
           //parsedObj is the object with single food's information
           try {
-            const parsedObj = (JSON.parse(data.body))[0]
+            console.log(data)
+            const parsedObj = data[0]
             foodNutritionLabel.textContent = foodInput.value;
 
             const newFood = {
@@ -254,6 +255,7 @@
             foodInput.value = "";
 
           } catch (e) {
+            console.log(e)
             foodInput.value = "Food Not Found"
             foodInput.style.color = "red"
             setTimeout(() => {
