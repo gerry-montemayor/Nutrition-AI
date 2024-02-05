@@ -438,7 +438,7 @@ li {
   width: 600px;
   background-color: #a28d6c;
   height: 460px;
-  border: 5px solid #2c210d;
+  border: 5px solid #ffebcd;
 
 
 }
@@ -492,7 +492,7 @@ li {
 
 .food-single-container {
   width: 98%;
-  background-color: white;
+  background-color: #9e9484;
   border: 5px solid black;
   min-height: 70px;
   max-height: 70px;
@@ -506,7 +506,7 @@ li {
 }
 
 .food-single-container:hover {
-  background-color: #a9acb3;
+  background-color: #666054;
 }
 
 #added-up-foods-container {
@@ -517,17 +517,17 @@ li {
 
 .food-title {
   margin-left: 30px;
-  font-size: 22px;
+  font-size: 28px;
   font-family: "Rubik", sans-serif;
   font-weight: 700;
-  width: fit-content
+  width: fit-content;
 }
 
 .food-calories {
   position: absolute;
-  left: 230px;
+  left: 300px;
   width: fit-content;
-  font-size: 25px;
+  font-size: 27px;
   font-family: "Rubik", sans-serif;
   font-weight: 700;
 }
@@ -535,7 +535,7 @@ li {
 .delete-food-btn {
   position: absolute;
   left: 520px;
-  width: fit-content;
+  width: 45px;
   height: fit-content;
   background-color: rgb(222, 69, 69);
   border: 2px solid black;
@@ -554,10 +554,33 @@ li {
   white-space: pre;
   position: left;
   margin-left: 20px;
-  color: white;
+  color: black;
   font-size: 30px;
   font-family: 'Rubik', sans-serif;
   font-weight: 700;
   width: 100%;
 
+}
+
+#info-btn {
+  opacity: 0;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border-radius: 35px;
+  border: 4px solid #ffebcd;
+  color: #ffebcd;
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 30px;
+  font-family: "Playfair Display", serif;
+  animation: fadeIn 2s 4s forwards;
+}
+
+#info-btn:hover {
+  background-color: darkgray;
 }

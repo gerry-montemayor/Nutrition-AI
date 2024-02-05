@@ -87,7 +87,7 @@
 
         </div>
         <div class="food-single-container"
-          style="border-radius: 20; background-color: rgb(84, 115, 85); padding-bottom: 5px; padding-top: 5px;margin-left: 5px; align-items: center; border: none">
+          style="background-color: whitesmoke; border-radius: 0; padding-bottom: 5px; padding-top: 5px;margin-left: 5px; align-items: center; border: 5px solid black">
           <p id="calorie-sum">Total Calories: </p>
         </div>
       </div>
@@ -126,10 +126,23 @@
       carbsLabel = document.getElementById("carbs-label")
 
 
+      function clearNutritionLabel() {
+        console.log("CLEAR")
+        serveSizeLabel.innerText = `Serving Size: `
+        caloriesLabel.innerText = `Calories:`
+        proteinLabel.innerText = `Protein:`
+        sodiumLabel.innerText = `Sodium: `
+        potassiumLabel.innerText = `Potassium:`
+        cholesterolLabel.innerText = `Cholesterol:`
+        fiberLabel.innerText = `Fiber:`
+        sugarLabel.innerText = `Sugar:`
+        carbsLabel.innerText = `Carbohydrates:`
+      }
+
       function singleFoodDivClicked(event) {
         const foodName = event.target.getElementsByClassName("food-title")[0].innerText;
         for (var i = 0; i < listOfAddedFoods.length; i++) {
-          if ((listOfAddedFoods[i]).name === foodName) {
+          if ((listOfAddedFoods[i]).entered_name === foodName) {
             serveSizeLabel.innerText = `Serving Size:                             ${(listOfAddedFoods[i]).servingsize} `
             caloriesLabel.innerText = `Calories:                                      ${(listOfAddedFoods[i]).calories}`
             proteinLabel.innerText = `Protein:                                      ${(listOfAddedFoods[i]).protein}`
@@ -162,11 +175,11 @@
           //parsedObj is the object with single food's information
           try {
             const parsedObj = (JSON.parse(data.body))[0]
-            foodNutritionLabel.innerText = parsedObj.name
             foodNutritionLabel.textContent = foodInput.value;
 
             const newFood = {
               name: `${parsedObj.name}`,
+              entered_name: `${foodInput.value}`,
               calories: `${parsedObj.calories}`,
               protein: `${parsedObj.protein_g}`,
               sodium: `${parsedObj.sodium_mg}`,
@@ -196,7 +209,7 @@
 
             const titleParagraph = document.createElement('p');
             titleParagraph.classList.add("food-title");
-            titleParagraph.innerText = `${parsedObj.name}`;
+            titleParagraph.innerText = `${foodInput.value}`;
             singleFoodDiv.appendChild(titleParagraph);
 
             const calorieParagraph = document.createElement('p');
@@ -213,6 +226,16 @@
               if (totalCalories < 0) {
                 totalCalories = 0;
               }
+
+              for (var i = 0; i < listOfAddedFoods.length; i++) {
+                if ((listOfAddedFoods[i]).entered_name === foodInput.value) {
+                  if (listOfAddedFoods.length == 0) {
+                    clearNutritionLabel();
+                  }
+                }
+              }
+
+
               totalCalDiv.innerText = `Total Calories:    ${Math.floor(totalCalories)}`;
             })
             singleFoodDiv.appendChild(deleteFoodBtn)
@@ -228,9 +251,18 @@
               totalCalories = 0;
             }
             totalCalDiv.innerText = `Total Calories:    ${Math.floor(totalCalories)}`
+            foodInput.value = "";
 
           } catch (e) {
-            console.log(e)
+            foodInput.value = "Food Not Found"
+            foodInput.style.color = "red"
+            setTimeout(() => {
+              foodInput.value = "";
+              foodInput.style.color = "black";
+
+            }, 1400)
+
+
             serveSizeLabel.innerText = `Serving Size:`
             caloriesLabel.innerText = `Calories:`
             proteinLabel.innerText = `Protein: `
