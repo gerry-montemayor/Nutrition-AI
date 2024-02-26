@@ -5,10 +5,11 @@ import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { chatGPTApiKey, foodDataApiKey } from "./config.js"
-import request from "request";
 import axios from "axios";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+
 
 const openai = new OpenAI({
   apiKey: `${chatGPTApiKey}`
@@ -49,6 +50,8 @@ app.post("/unknown", async (req, res) => {
 });
 
 
+"{calorie intake: <number here>"
+
 app.post("/mealplan", async (req, res) => {
   const { messages } = req.body;
 
@@ -56,8 +59,8 @@ app.post("/mealplan", async (req, res) => {
   const gptConfiguration = "You will receive a profile for a person that includes" +
     "their age, gender, height, weight, excercise frequency, and goal. Your job is to " +
     "create a nutrition plan. With the given information, you will return a plan in json format as follows:" +
-    "{ 'breakfast': 'breakfast plan here', 'lunch' : 'lunch plan here', 'dinner': 'dinner plan here'} " +
-    "Please ensure that you only return a json of the described format. Insert each individual plan into the correct place in the json"
+    "{ 'breakfast': {'option1 : 'plan and calorie count', option2 :'plan and calorie count' , option3 : 'plan and calorie count', option4 : 'plan and calorie count'}, 'lunch' : {'option1 : 'plan and calorie count', option2 :'plan and calorie count' , option3 : 'plan and calorie count', option4 : 'plan and calorie count'}, 'dinner': {'option1 : 'plan and calorie count', option2 :'plan and calorie count' , option3 : 'plan and calorie count', option4 : 'plan and calorie count'}, 'advice' : 'put advice here, include a summary of goals of person, how many calories they need to consume, protein, water consumption, and other important macro amounts, and any more detals. Make this a paragraph of about 200 words.'} " +
+    "Please ensure that you only return a json of the described format. Insert each individual plan into the correct place in the json, and for each option, make sure to add the calories of the meal at the end"
 
 
   const chatCompletion = await openai.chat.completions.create({
@@ -90,22 +93,6 @@ app.post("/calories", async (req, res) => {
     completion: chatCompletion.choices[0].message
   })
 });
-
-
-// app.post('/nutrition', (req, res) => {
-//   const query = req.body.query;
-//   const apiUrl = 'https://api.api-ninjas.com/v1/nutrition?query=' + query;
-
-//   request(apiUrl, {
-//     headers: {
-//       'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' // Replace 'YOUR_API_KEY' with your actual API key
-//     }
-//   }, (response, body) => {
-
-//     res.json(body);
-//   }
-//   );
-// });
 
 
 app.post('/nutrition', async (req, res) => {

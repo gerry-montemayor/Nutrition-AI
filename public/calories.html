@@ -138,6 +138,7 @@
         sugarLabel.innerText = `Sugar:`
         carbsLabel.innerText = `Carbohydrates:`
       }
+      
 
       function singleFoodDivClicked(event) {
         const foodName = event.target.getElementsByClassName("food-title")[0].innerText;
@@ -176,7 +177,6 @@
           try {
             console.log(data)
             const parsedObj = data[0]
-            foodNutritionLabel.textContent = foodInput.value;
 
             const newFood = {
               name: `${parsedObj.name}`,
@@ -191,6 +191,7 @@
               carbs: `${parsedObj.carbohydrates_total_g}`,
               servingsize: `${parsedObj.serving_size_g}`,
             }
+            foodNutritionLabel.textContent = foodInput.value;
 
             listOfAddedFoods.push(newFood);
 
@@ -255,7 +256,7 @@
             foodInput.value = "";
 
           } catch (e) {
-            console.log(e)
+            console.log("HI")
             foodInput.value = "Food Not Found"
             foodInput.style.color = "red"
             setTimeout(() => {
