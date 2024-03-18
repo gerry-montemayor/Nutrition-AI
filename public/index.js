@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { chatGPTApiKey, foodDataApiKey } from "./config.js"
+import { chatGPTApiKey, foodDataApiKey } from "../config.js"
 import axios from "axios";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
