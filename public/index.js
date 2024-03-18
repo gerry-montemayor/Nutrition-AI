@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("https://nutrition-ai-psi.vercel.app/home", (req, res) => {
-  res.redirect("/");
+  res.redirect("/https://nutrition-ai-psi.vercel.app");
 })
 
 
