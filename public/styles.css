@@ -349,12 +349,16 @@ li {
 }
 
 #main-advice-container {
-  background-color: #2c332d;
+  background-color: #1f2821;
   border: 5px solid white;
   width: 90%;
   height: 200px;
   margin-top: 20px;
   border-radius: 20px;
+  font-family: "Rubik", sans-serif;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
 }
 
 
@@ -608,12 +612,12 @@ li {
 
 .plan-container {
   margin-top: 20px;
-  background-color: #1f2821;
   color: white;
   width: 90%;
   height: 70%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   gap: 20px;
 }
 
@@ -627,6 +631,8 @@ li {
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
 }
 
 ul {
@@ -665,7 +671,7 @@ ul {
 }
 
 .form-responses select {
-  font-family: 'Rubik', sans-serif; 
+  font-family: 'Rubik', sans-serif;
   margin-top: 3px;
   margin-bottom: 2px;
   font-size: 20px;
@@ -673,4 +679,19 @@ ul {
   width: 160px;
   padding: none;
   margin: none;
+}
+
+
+.info-container {
+  width: 880px;
+  height: 200px;
+  background-color: #1f2821;
+  border-radius: 45px;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-size: 25px;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
+
 }

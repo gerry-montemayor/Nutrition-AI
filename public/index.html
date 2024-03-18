@@ -39,11 +39,6 @@
           <p class="option-title">Meal Planner</p>
           <p class="option-description">Create a personal plan!</p>
         </button>
-        <button id="recipes-btn">
-          <img class="icon" src="./images/fork-knife-icon.png">
-          <p class="option-title">Recipes</p>
-          <p class="option-description">Cook up healthy meals!</p>
-        </button>
       </div>
     </div>
   </div>
@@ -61,8 +56,13 @@
       location.href = "./mealplan.html"
     }
 
-    document.getElementById("recipes-btn").onclick = () => {
-      location.href = "./recipes.html"
+    // document.getElementById("recipes-btn").onclick = () => {
+    //   location.href = "./recipes.html"
+    // }
+
+    document.getElementById("info-btn").onclick = () => {
+      location.href = "./info.html"
+      console.log("CLICK")
     }
 
   </script>
