@@ -10,8 +10,8 @@
   ],
   "routes": [
    {
-       "src": "/(.*)",
-       "dest": "/"
+       "src": "https://nutrition-ai-psi.vercel.app/home/(.*)",
+       "dest": "/https://nutrition-ai-psi.vercel.app"
    }
   ]
 }
