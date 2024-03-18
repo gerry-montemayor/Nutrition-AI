@@ -50,7 +50,6 @@ app.post("/unknown", async (req, res) => {
 });
 
 
-"{calorie intake: <number here>"
 
 app.post("/mealplan", async (req, res) => {
   const { messages } = req.body;
