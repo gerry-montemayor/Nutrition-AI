@@ -226,7 +226,7 @@ Frequency of eating out or cooking at home -->
         }
         messages.push(newMessage);
 
-        fetch('/mealplan', {
+        fetch('https://nutrition-ai-psi.vercel.app/mealplan', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'

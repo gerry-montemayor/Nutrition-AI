@@ -25,12 +25,12 @@ app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.post("/home", (req, res) => {
+app.post("https://nutrition-ai-psi.vercel.app/home", (req, res) => {
   res.redirect("/");
 })
 
 
-app.post("/unknown", async (req, res) => {
+app.post("https://nutrition-ai-psi.vercel.app/unknown", async (req, res) => {
   const { messages } = req.body;
 
   const chatCompletion = await openai.chat.completions.create({
@@ -49,7 +49,7 @@ app.post("/unknown", async (req, res) => {
 
 
 
-app.post("/mealplan", async (req, res) => {
+app.post("https://nutrition-ai-psi.vercel.app/mealplan", async (req, res) => {
   const { messages } = req.body;
 
 
@@ -76,7 +76,7 @@ app.post("/mealplan", async (req, res) => {
 
 
 
-app.post("/calories", async (req, res) => {
+app.post("https://nutrition-ai-psi.vercel.app/calories", async (req, res) => {
   const { messages } = req.body;
 
   const chatCompletion = await openai.chat.completions.create({
@@ -92,7 +92,7 @@ app.post("/calories", async (req, res) => {
 });
 
 
-app.post('/nutrition', async (req, res) => {
+app.post('https://nutrition-ai-psi.vercel.app/nutrition', async (req, res) => {
   const query = req.body.query;
   const apiUrl = 'https://api.api-ninjas.com/v1/nutrition?query=' + query;
 
