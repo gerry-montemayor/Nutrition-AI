@@ -144,9 +144,6 @@ Frequency of eating out or cooking at home -->
 
 
   <script>
-
-
-
     const submitBtn = document.getElementById("submit-info");
     const plansContainer = document.getElementsByClassName("plans-container")[0];
 
@@ -226,7 +223,7 @@ Frequency of eating out or cooking at home -->
         }
         messages.push(newMessage);
 
-        fetch('https://nutrition-ai-psi.vercel.app/mealplan', {
+        fetch('/mealplan', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
