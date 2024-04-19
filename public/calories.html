@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <nav>
+    <form class="back-home" action="/home" method="POST">
+
+      <button type="submit"> <img src="./images/home_icon.png"></button>
+    </form>
+    <p> NutritionAI </p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Food Facts</p>
+  </nav>
+
+  <div class="main-foodfacts-container" style="height: max-content">
+
+    <form id="food-submit-form">
+      <p style="color: rgb(235, 97, 97)"> Tip: Specify the amount of each food! Ex. two apples, 30g of tikka masala</p>
+      <label for="food">Enter Food:</label>
+      <input type="text" name="food" id="food"
+        style="width: 200px; height: 100%; font-size: 25px;   font-family: 'Rubik', sans-serif; padding-left: 10px;">
+      <button type="submit" id="food-data-submit">Submit</button>
+
+    </form>
+
+    <div class="foodfacts-container">
+      <div id="single-food-fact-container" class="foodfacts" style="background-color: transparent; border: none">
+        <div class="single-food-info">
+          <div style="display: flex; align-items: center; justify-content: center;">
+            <p class="nutrition-facts-title">Nutrition Facts: </p>
+            <p class="nutrition-facts-title" id="nutrition-food-name"
+              style="text-decoration: none; margin-left: 10px; font-size: 25px; color: rgb(99, 82, 60)">
+              <!-- food goes here -->
+            </p>
+          </div>
+          </br>
+          <div class="nutrition-facts-text"
+            style=" font-weight: 600;width: 100%;margin-left: 50px; display: flex; flex-direction: column; align-items: flex-start; height: 400px; gap: 8px;">
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="calories-label" style="white-space: pre;">Calories: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="servingsize-label" style="white-space: pre;">Serving Size: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="protein-label" style="white-space: pre;">Protein: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="sodium-label" style="white-space: pre;">Sodium: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="potassium-label" style="white-space: pre;">Potassium: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="cholesterol-label" style="white-space: pre;">Cholesterol: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="carbs-label" style="white-space: pre;">Carbohydrates: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="fiber-label" style="white-space: pre;">Fiber: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+            <p id="sugar-label" style="white-space: pre;">Sugar: </p>
+            <hr style="color: black; width: 90%;  border: 0; border-bottom: 3px dotted black" />
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <div class="foodfacts" style="margin: none; flex-direction: column; min-width: 600px">
+        <div id="added-up-foods-container" style="margin: none; flex-direction: column; height: 80%; overflow-y: auto">
+
+
+
+
+
+        </div>
+        <div class="food-single-container"
+          style="background-color: whitesmoke; border-radius: 0; padding-bottom: 5px; padding-top: 5px;margin-left: 5px; align-items: center; border: 5px solid black">
+          <p id="calorie-sum">Total Calories: </p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <script>
+
+
+
+      const submitForm = document.getElementById("food-data-submit");
+      const foodInput = document.getElementById("food")
+
+      const foodNutritionLabel = document.getElementById("nutrition-food-name");
+
+      const addedUpFoodsContainer = document.getElementById("added-up-foods-container")
+      var listOfAddedFoods = []
+      var totalCalories = 0
+
+      const totalCalDiv = document.getElementById("calorie-sum");
+      totalCalDiv.innerText += "   " + totalCalories;
+
+
+
+      //labels
+      caloriesLabel = document.getElementById("calories-label");
+      proteinLabel = document.getElementById("protein-label")
+      serveSizeLabel = document.getElementById("servingsize-label")
+      potassiumLabel = document.getElementById("potassium-label")
+      fiberLabel = document.getElementById("fiber-label")
+      sodiumLabel = document.getElementById("sodium-label");
+      cholesterolLabel = document.getElementById("cholesterol-label")
+      sugarLabel = document.getElementById("sugar-label")
+      carbsLabel = document.getElementById("carbs-label")
+
+
+      function clearNutritionLabel() {
+        console.log("CLEAR")
+        serveSizeLabel.innerText = `Serving Size: `
+        caloriesLabel.innerText = `Calories:`
+        proteinLabel.innerText = `Protein:`
+        sodiumLabel.innerText = `Sodium: `
+        potassiumLabel.innerText = `Potassium:`
+        cholesterolLabel.innerText = `Cholesterol:`
+        fiberLabel.innerText = `Fiber:`
+        sugarLabel.innerText = `Sugar:`
+        carbsLabel.innerText = `Carbohydrates:`
+      }
+      
+
+      function singleFoodDivClicked(event) {
+        const foodName = event.target.getElementsByClassName("food-title")[0].innerText;
+        for (var i = 0; i < listOfAddedFoods.length; i++) {
+          if ((listOfAddedFoods[i]).entered_name === foodName) {
+            serveSizeLabel.innerText = `Serving Size:                             ${(listOfAddedFoods[i]).servingsize} `
+            caloriesLabel.innerText = `Calories:                                      ${(listOfAddedFoods[i]).calories}`
+            proteinLabel.innerText = `Protein:                                      ${(listOfAddedFoods[i]).protein}`
+            sodiumLabel.innerText = `Sodium:                                        ${(listOfAddedFoods[i]).sodium}`
+            potassiumLabel.innerText = `Potassium:                                 ${(listOfAddedFoods[i]).potassium}`
+            cholesterolLabel.innerText = `Cholesterol:                                ${(listOfAddedFoods[i]).cholesterol}`
+            fiberLabel.innerText = `Fiber:                                         ${(listOfAddedFoods[i]).fiber}`
+            sugarLabel.innerText = `Sugar:                                       ${(listOfAddedFoods[i]).sugar}`
+            carbsLabel.innerText = `Carbohydrates:                      ${(listOfAddedFoods[i]).carbs}`
+            foodNutritionLabel.innerText = foodName;
+
+          }
+        }
+      }
+
+      submitForm.addEventListener('click', (e) => {
+        e.preventDefault();
+
+
+
+        fetch('/nutrition', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({ query: `${foodInput.value}` })
+        }).then(res => {
+          return res.json();
+        }).then(data => {
+          //parsedObj is the object with single food's information
+          try {
+            console.log(data)
+            const parsedObj = data[0]
+
+            const newFood = {
+              name: `${parsedObj.name}`,
+              entered_name: `${foodInput.value}`,
+              calories: `${parsedObj.calories}`,
+              protein: `${parsedObj.protein_g}`,
+              sodium: `${parsedObj.sodium_mg}`,
+              potassium: `${parsedObj.potassium_mg}`,
+              cholesterol: `${parsedObj.cholesterol_mg}`,
+              fiber: `${parsedObj.fiber_g}`,
+              sugar: `${parsedObj.sugar_g}`,
+              carbs: `${parsedObj.carbohydrates_total_g}`,
+              servingsize: `${parsedObj.serving_size_g}`,
+            }
+            foodNutritionLabel.textContent = foodInput.value;
+
+            listOfAddedFoods.push(newFood);
+
+
+            serveSizeLabel.innerText = `Serving Size:                             ${parsedObj.serving_size_g} `
+            caloriesLabel.innerText = `Calories:                                      ${parsedObj.calories}`
+            proteinLabel.innerText = `Protein:                                      ${parsedObj.protein_g}`
+            sodiumLabel.innerText = `Sodium:                                        ${parsedObj.sodium_mg}`
+            potassiumLabel.innerText = `Potassium:                                 ${parsedObj.potassium_mg}`
+            cholesterolLabel.innerText = `Cholesterol:                                ${parsedObj.cholesterol_mg}`
+            fiberLabel.innerText = `Fiber:                                         ${parsedObj.fiber_g}`
+            sugarLabel.innerText = `Sugar:                                       ${parsedObj.sugar_g}`
+            carbsLabel.innerText = `Carbohydrates:                      ${parsedObj.carbohydrates_total_g}`
+
+            const singleFoodDiv = document.createElement('div');
+            singleFoodDiv.classList.add("food-single-container");
+
+            const titleParagraph = document.createElement('p');
+            titleParagraph.classList.add("food-title");
+            titleParagraph.innerText = `${foodInput.value}`;
+            singleFoodDiv.appendChild(titleParagraph);
+
+            const calorieParagraph = document.createElement('p');
+            calorieParagraph.classList.add("food-calories");
+            calorieParagraph.innerText = `${parsedObj.calories} cal.`;
+            singleFoodDiv.appendChild(calorieParagraph);
+
+            const deleteFoodBtn = document.createElement('button');
+            deleteFoodBtn.classList.add("delete-food-btn");
+            deleteFoodBtn.innerText = "X";
+            deleteFoodBtn.addEventListener('click', (e) => {
+              e.target.parentElement.remove();
+              totalCalories -= parseFloat(parsedObj.calories);
+              if (totalCalories < 0) {
+                totalCalories = 0;
+              }
+
+              for (var i = 0; i < listOfAddedFoods.length; i++) {
+                if ((listOfAddedFoods[i]).entered_name === foodInput.value) {
+                  if (listOfAddedFoods.length == 0) {
+                    clearNutritionLabel();
+                  }
+                }
+              }
+
+
+              totalCalDiv.innerText = `Total Calories:    ${Math.floor(totalCalories)}`;
+            })
+            singleFoodDiv.appendChild(deleteFoodBtn)
+
+
+            singleFoodDiv.addEventListener('click', (e) => {
+              singleFoodDivClicked(e);
+            })
+
+            addedUpFoodsContainer.appendChild(singleFoodDiv);
+            totalCalories += parseFloat(parsedObj.calories);
+            if (totalCalories < 0) {
+              totalCalories = 0;
+            }
+            totalCalDiv.innerText = `Total Calories:    ${Math.floor(totalCalories)}`
+            foodInput.value = "";
+
+          } catch (e) {
+            console.log("HI")
+            foodInput.value = "Food Not Found"
+            foodInput.style.color = "red"
+            setTimeout(() => {
+              foodInput.value = "";
+              foodInput.style.color = "black";
+
+            }, 1400)
+
+
+            serveSizeLabel.innerText = `Serving Size:`
+            caloriesLabel.innerText = `Calories:`
+            proteinLabel.innerText = `Protein: `
+            sodiumLabel.innerText = `Sodium:  `
+            potassiumLabel.innerText = `Potassium:  `
+            cholesterolLabel.innerText = `Cholesterol:`
+            fiberLabel.innerText = `Fiber: `
+            sugarLabel.innerText = `Sugar: `
+            carbsLabel.innerText = `Carbohydrates:`
+          }
+        })
+      })
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

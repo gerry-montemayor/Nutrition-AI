@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<!-- Basic Information:
+
+Age
+Gender
+Height
+Weight
+Activity level (sedentary, lightly active, moderately active, very active)
+Goals:
+
+Weight loss, maintenance, or gain
+Target weight or body composition goals
+Dietary Preferences and Restrictions:
+
+Vegetarian, vegan, omnivore, etc.
+Food allergies or intolerances
+Religious or cultural dietary restrictions
+Current Eating Habits:
+
+Typical daily calorie intake
+Typical macronutrient intake (protein, carbohydrates, fats)
+Current water intake
+Medical and Health Information:
+
+Any medical conditions (diabetes, high blood pressure, etc.)
+Medications that might affect diet or metabolism
+Any specific nutritional needs or considerations
+Activity and Exercise:
+
+Type and frequency of exercise
+Intensity and duration of workouts
+Lifestyle Factors:
+
+Stress levels
+Sleep patterns
+Other lifestyle factors that might affect diet or metabolism
+Food Preferences:
+
+Favorite foods or dislikes
+Preferred cooking methods
+Frequency of eating out or cooking at home -->
+
+
+
+<body style="padding-top: 10px;overflow: auto">
+  <nav>
+    <form class="back-home" action="/home" method="POST">
+      <button type="submit"> <img src="./images/home_icon.png"></button>
+    </form>
+    <p> NutritionAI </p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Your Nutrition Plan</p>
+  </nav>
+
+
+  <div class="mealplan-container">
+
+    <p class="subtitle" style="margin: 0; opacity: 1;animation: none;">Fill out the form!</p>
+
+    <form class="plan-form" id="plan-form">
+
+      <div class="form-questions"
+        style="display: flex; flex-direction: column; gap: 20px; align-items: center; font-size: 20px; font-family: 'Rubik', sans-serif;">
+        <label for="age">Age</label>
+        <label for="gender">Gender</label>
+        <label for="height">Height (inches) </label>
+        <label for="weight">Weight (Ibs.) </label>
+        <label for="activity-lvl">Activity Level</label>
+        <label for="user-goal">What's your goal?</label>
+
+      </div>
+      <div class="form-responses" style="display: flex; flex-direction: column; gap: 15px;">
+        <input type="text" name="age" id="age">
+
+        <select id="gender" name="gender">
+          <option></option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <input type="text" name="height" id="height">
+
+        <input type="text" name="weight" id="weight">
+
+        <select style="height: 25px;" id="activity-lvl" name="activity-lvl">
+          <option></option>
+          <option value="barely">Barely Active</option>
+          <option value="light">Lightly Active</option>
+          <option value="light">Moderately Active</option>
+          <option value="light">Very Active</option>
+        </select>
+
+        <input type="text" name="user-goal" id="user-goal">
+      </div>
+    </form>
+    <button class="plan-button" type="submit" id="submit-info">Get Your Personal Plan</button>
+  </div>
+
+
+  <div class="plans-container no-display">
+    <div id="main-advice-container">
+
+
+    </div>
+    <div class="plan-container">
+      <div id="breakfast-container" class="daily-plan-container">
+        <p>Breakfast</p>
+        <br />
+
+
+      </div>
+      <div id="lunch-container" class="daily-plan-container">
+        <p>Lunch</p>
+        <br />
+
+      </div>
+      <div id="dinner-container" class="daily-plan-container">
+        <p>Dinner</p>
+        <br />
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <script>
+    const submitBtn = document.getElementById("submit-info");
+    const plansContainer = document.getElementsByClassName("plans-container")[0];
+
+    const userForm = document.getElementById("plan-form");
+
+
+    const returnToTop = document.getElementById("return-to-top");
+    const returnToTopBtn = document.getElementById("return-top-btn");
+
+    const breakfastContainer = document.getElementById("breakfast-container");
+    const lunchContainer = document.getElementById("lunch-container");
+    const dinnerContainer = document.getElementById("dinner-container");
+    const adviceContainer = document.getElementById("main-advice-container");
+
+    const genderInput = document.getElementById("gender");
+    const ageInput = document.getElementById("age");
+    const heightInput = document.getElementById("height");
+    const excerciseInput = document.getElementById("activity-lvl")
+    const goalInput = document.getElementById("user-goal");
+    const weightInput = document.getElementById("weight")
+
+    let messages = []
+
+
+
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      breakfastContainer.innerHTML = "<p>Breakfast</p><br/>"
+      lunchContainer.innerHTML = "<p>Lunch</p><br/>"
+      dinnerContainer.innerHTML ="<p>Dinner</p><br/>"
+      adviceContainer.innerHTML = ""
+
+      //catch bad inputs
+      try {
+
+        const userGender = genderInput.value;
+        if (userGender !== 'female' && userGender !== 'male') {
+          throw e;
+        }
+
+        const userAge = ageInput.value;
+        if (isNaN(ageInput.value) == true || ageInput.value === "") {
+          throw e;
+        }
+
+        const userHeight = heightInput.value;
+        if (isNaN(heightInput.value) == true || heightInput.value === "") {
+          throw e;
+        }
+
+        const userExcercise = excerciseInput.value;
+        if (userExcercise === "") {
+          throw e;
+        }
+
+        const userGoal = goalInput.value;
+        if (userGoal === "") {
+          throw e;
+        }
+
+        const userWeight = weightInput.value;
+        if (isNaN(weightInput.value) == true || weightInput.value === "") {
+          throw e;
+        }
+
+        plansContainer.classList.remove("no-display");
+        plansContainer.scrollIntoView({ behavior: "smooth" });
+
+
+        const messageText = `Here is the profile. I am a ${userGender} and ${userAge} `
+          + `years old. I am ${userHeight} inches tall, and weigh ${userWeight} pounds.`
+          + ` I also am ${userExcercise}.`
+
+        const newMessage = {
+          "role": "user",
+          "content": `${messageText}`
+        }
+        messages.push(newMessage);
+
+        fetch('/mealplan', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({ messages })
+        }).then(res => res.json())
+          .then(data => {
+            console.log(data.completion.content);
+            let gptResponse = data.completion.content;
+            let jsonResponse = JSON.parse(gptResponse);
+
+            // let breakfastPlan = JSON.parse(jsonResponse.breakfast);
+            console.log("HI" + jsonResponse.breakfast.option1);
+            let lunchPlan = jsonResponse.lunch;
+            let dinnerPlan = jsonResponse.dinner;
+
+            const breakfastElement = document.createElement('ul');
+
+            const breakfastOption1 = document.createElement('li');
+            breakfastOption1.innerHTML = jsonResponse.breakfast.option1;
+
+            const breakfastOption2 = document.createElement('li');
+            breakfastOption2.innerHTML = jsonResponse.breakfast.option2;
+
+            const breakfastOption3 = document.createElement('li');
+            breakfastOption3.innerHTML = jsonResponse.breakfast.option3;
+
+            const breakfastOption4 = document.createElement('li');
+            breakfastOption4.innerHTML = jsonResponse.breakfast.option4;
+
+            breakfastElement.appendChild(breakfastOption1)
+            breakfastElement.appendChild(breakfastOption2)
+            breakfastElement.appendChild(breakfastOption3)
+            breakfastElement.appendChild(breakfastOption4)
+
+
+
+            // breakfastElement.innerHTML = `${breakfastPlan}`
+
+            const lunchElement = document.createElement('ul');
+
+            const lunchOption1 = document.createElement('li');
+            lunchOption1.innerHTML = jsonResponse.lunch.option1;
+
+            const lunchOption2 = document.createElement('li');
+            lunchOption2.innerHTML = jsonResponse.lunch.option2;
+
+            const lunchOption3 = document.createElement('li');
+            lunchOption3.innerHTML = jsonResponse.lunch.option3;
+
+            const lunchOption4 = document.createElement('li');
+            lunchOption4.innerHTML = jsonResponse.lunch.option4;
+
+            lunchElement.appendChild(lunchOption1)
+            lunchElement.appendChild(lunchOption2)
+            lunchElement.appendChild(lunchOption3)
+            lunchElement.appendChild(lunchOption4)
+
+            const dinnerElement = document.createElement('ul');
+            const dinnerOption1 = document.createElement('li');
+            dinnerOption1.innerHTML = jsonResponse.dinner.option1;
+
+            const dinnerOption2 = document.createElement('li');
+            dinnerOption2.innerHTML = jsonResponse.dinner.option2;
+
+            const dinnerOption3 = document.createElement('li');
+            dinnerOption3.innerHTML = jsonResponse.dinner.option3;
+
+            const dinnerOption4 = document.createElement('li');
+            dinnerOption4.innerHTML = jsonResponse.dinner.option4;
+
+            dinnerElement.appendChild(dinnerOption1)
+            dinnerElement.appendChild(dinnerOption2)
+            dinnerElement.appendChild(dinnerOption3)
+            dinnerElement.appendChild(dinnerOption4)
+
+
+            breakfastContainer.appendChild(breakfastElement);
+            lunchContainer.appendChild(lunchElement);
+            dinnerContainer.appendChild(dinnerElement);
+
+
+            mainAdvice = document.createElement('p');
+            mainAdvice.innerHTML = `<p> ${jsonResponse.advice}</p>`
+            adviceContainer.appendChild(mainAdvice);
+
+          })
+
+      } catch (e) {
+        console.log(e)
+      }
+
+
+
+
+
+
+
+
+    })
+
+
+
+  </script>
+
+  <!-- 
+  <form class="main-form" action="">
+    <label for="age">Age</label>
+    <input type="text" name="age" id="age">
+
+
+    <label for="message">Chat with me!</label>
+    <input type="text" name="message" id="message">
+    <button type="submit">Send</button>
+  </form>
+  <div id="chat-log"></div> -->
+  <!-- <script>
+    let messages = []
+
+    const chatLog = document.getElementById('chat-log');
+    const message = document.getElementById('message');
+
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      //customize message here: plan is to be able to input your age, weight, etc
+      // also will involve a calorie tracker/calculator
+
+
+      const messageText = message.value;
+
+      const newMessage = {
+        "role": "user",
+        "content": `${messageText}`
+      }
+      messages.push(newMessage);
+
+      message.value = "";
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      messageElement.classList.add('message--sent');
+      messageElement.innerHTML = `
+    <div class="message__text">${messageText}</div>
+  `;
+      chatLog.appendChild(messageElement);
+      chatLog.scrollTop = chatLog.scrollHeight;
+      fetch('/mealplan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          messages
+        })
+      }).then(res => res.json())
+        .then(data => {
+          let newAssistantMessage = { "role": "assistant", "content": `${data.completion.content}` }
+          messages.push(newAssistantMessage);
+          const messageText = message.value;
+          message.value = "";
+          const messageElement = document.createElement('div');
+          messageElement.innerHTML = `<div class="message__text">${data.completion.content}</div>`;
+          chatLog.appendChild(messageElement);
+          chatLog.scrollTop = chatLog.scrollHeight;
+
+        })
+    })
+  </script> -->
+</body>
+
+</html>

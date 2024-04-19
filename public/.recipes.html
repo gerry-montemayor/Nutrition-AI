@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutritionAI</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <form class="back-home" action="/home" method="POST">
+
+      <button type="submit"> <img src="./images/home_icon.png"></button>
+    </form>
+    <p> NutritionAI </p>
+    <p class="subtitle" style="margin-left: 20px"> ~ Calculator</p>
+  </nav>
+  <div id="main-calculator-container">
+    <div id="calculator-container">
+
+      <p class="calc-description">This is the Calorie Calculator! Please enter a list of food items. Try to be
+        as specific as you can when entering your data, for example: two apples, a medium steak, etc.
+      </p>
+
+
+      <form id="input-form" action="">
+        <input type="text" name="foods-input" id="foods-input">
+        <button type="submit">Submit</button>
+      </form>
+      <ul id="list-output">
+
+      </ul>
+
+
+      <div class="chat-response-container">
+        <form id="calories-form" action="">
+          <input style="display: none" type="text" name="message" id="message">
+          <button type="submit">Calculate Calories</button>
+
+        </form>
+        <div id="chat-log">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+
+
+  var submitted = false;
+  var isNewPrompt = true;
+
+  var messageToSend = "";
+
+  //the form user types in foods
+  const inputForm = document.getElementById("input-form");
+  //the input element of the form
+  const userInput = document.getElementById("foods-input");
+
+  //the list element that holds all inputs
+  const foodListDiv = document.getElementById("list-output")
+
+  const chatLog = document.getElementById("chat-log");
+  const message = document.getElementById("message");
+  const caloriesForm = document.getElementById("calories-form");
+
+
+
+  inputForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    var inputFood = userInput.value;
+    messageToSend += `${inputFood},`;
+    userInput.value = "";
+
+    const listElement = document.createElement('li');
+    listElement.innerHTML = `${inputFood}`
+    foodListDiv.appendChild(listElement);
+    message.value = messageToSend;
+  })
+
+  userInput.addEventListener('click', () => {
+    if (submitted) {
+      foodListDiv.innerHTML = "";
+      chatLog.innerHTML = "";
+      isNewPrompt = true;
+      submitted = false;
+    }
+  })
+
+
+
+
+  let messages = []
+
+  caloriesForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!isNewPrompt) {
+      chatLog.innerHTML = "";
+      foodListDiv.innerHTML = "";
+      messageToSend = "";
+      isNewPrompt = true;
+    } else {
+      isNewPrompt = false;
+      submitted = true;
+      messageToSend = "";
+
+      const messageText = message.value;
+
+      const newMessage = {
+        "role": "user",
+        "content": `${messageText}`
+      }
+      messages.push(newMessage);
+
+      message.value = ""
+      const messageElement = document.createElement('div');
+      messageElement.innerHTML = `<div> ${messageText}</div>`
+      // chatLog.appendChild(messageElement);
+
+      fetch('/calories', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ messages })
+      }).then(res => res.json())
+        .then(data => {
+          let newAssistantMessage = { "role": "assistant", "content": `${data.completion.content}` }
+          messages.push(newAssistantMessage);
+          const messageText = message.value;
+          message.value = "";
+          const messageElement = document.createElement('div');
+          messageElement.innerHTML = `<div>${data.completion.content} calories </div>`;
+          chatLog.appendChild(messageElement);
+
+        })
+    }
+
+  })
+
+
+
+
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,697 @@
+/* colors */
+/* background-color: #5a554c;  this is a light brown */
+
+
+
+* {
+  margin: 0px;
+  padding: 0px;
+
+}
+
+body {
+  height: 100%;
+  background-color: #2c332d;
+  overflow: hidden;
+}
+
+@keyframes translateUp {
+  from {
+    transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-150px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.title {
+  opacity: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 65px;
+  letter-spacing: 1px;
+  animation: fadeIn 2s forwards;
+}
+
+.subtitle {
+  opacity: 0;
+  color: white;
+  font-size: 40px;
+  font-weight: 600;
+  animation: fadeIn 2s 1.5s forwards;
+}
+
+
+.main-container {
+  color: #ffebcd;
+  margin: 20px;
+  border: 3px solid #ffebcd;
+  border-radius: 30px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+
+
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 230px;
+  animation: translateUp 2.5s 3s forwards;
+
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
+
+.option-container {
+  opacity: 0;
+  display: flex;
+  gap: 80px;
+  animation: fadeIn 1.5s 4s forwards;
+  margin-top: 60px;
+}
+
+
+.option-container button {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 30px;
+  width: 330px;
+  height: 340px;
+  background-color: #5a554c;
+  border-style: none;
+  border: 6px solid #ffebcd;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.option-container button img {
+  margin-bottom: 10px;
+}
+
+.option-title {
+  font-family: "Rubik", sans-serif;
+  font-size: 50px;
+  color: white;
+  font-style: bold;
+}
+
+.option-description {
+  font-family: "Rubik", sans-serif;
+
+  font-style: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.option-container button:hover {
+  transform: scale(1.1);
+}
+
+.option-container button::selection {
+  transform: translateX(35px);
+}
+
+.icon {
+  width: 170px;
+}
+
+nav {
+  display: flex;
+  height: 100px;
+  background-color: #1f2821;
+  border-radius: 25px;
+  align-items: center;
+  color: white;
+  margin: 10px;
+
+}
+
+nav p {
+  opacity: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 65px;
+  letter-spacing: 1px;
+  animation: fadeIn 2s forwards;
+  font-weight: 600;
+  color: #ffebcd;
+}
+
+nav button {
+  background-color: transparent;
+  border-style: none;
+  border-radius: 20px;
+}
+
+nav button:hover {
+  background-color: #a9acb3;
+}
+
+nav button img {
+  width: 80px;
+}
+
+
+#calculator-container {
+  margin-top: 10px;
+  background-color: #5a554c;
+  border: 7px solid #ffebcd;
+  border-radius: 20px;
+  height: 530px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#calories-form {
+  width: 10%;
+}
+
+#calories-form label {
+  font-size: 30px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  color: white;
+}
+
+#calories-form input {
+  width: 80%;
+  height: 50px;
+  font-size: 20px;
+  border: 8px solid rgb(93, 63, 22)
+}
+
+#calories-form button {
+  height: 50px;
+  width: 100px;
+  height: 60px;
+  border: 3px solid black;
+  border-radius: 20px;
+  font-family: "Rubik", sans-serif;
+  background-color: #a28d6c;
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 100px;
+
+}
+
+.calc-description {
+
+  margin: 10px;
+  height: fit-content;
+  font-size: 23px;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+}
+
+#input-form {
+  flex-direction: row;
+  width: fit-content;
+  width: 80%;
+  gap: 20px;
+}
+
+
+#foods-input {
+  height: 50px;
+  width: 70%;
+  border: 3px solid black;
+  padding: 2px;
+  font-size: 25px;
+  font-family: "Rubik", sans-serif;
+  padding-left: 10px;
+}
+
+#input-form button {
+  height: 50px;
+  width: 100px;
+  border: 3px solid black;
+  border-radius: 20px;
+  font-family: "Rubik", sans-serif;
+  background-color: #a28d6c;
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#input-form button:hover {
+  background-color: rgb(88, 76, 36);
+}
+
+
+
+
+#list-output {
+  background-color: #a9acb3;
+  margin: 20px;
+  padding: 20px;
+  width: 80%;
+  height: 250px;
+  overflow: auto;
+  border: 4px solid black;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: left;
+  font-family: "Rubik", sans-serif;
+  font-size: 25px;
+}
+
+li {
+  margin-left: 20px;
+
+}
+
+
+
+#chat-log {
+  font-family: "Rubik", sans-serif;
+  background-color: white;
+  width: 60%;
+  height: 50px;
+  border: 3px solid black;
+  border-radius: 10px;
+  display: flex;
+  padding: 2px;
+  font-size: 30px;
+  align-items: center;
+  padding-left: 30px;
+
+}
+
+.chat-response-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 70px;
+  margin-bottom: 10px;
+  gap: 100px;
+  align-items: center;
+
+}
+
+#main-calculator-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-form label {
+  color: white;
+}
+
+.mealplan-container {
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.plans-container {
+  width: 100%;
+  margin-top: 20px;
+  height: 670px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 50px;
+  flex-direction: column;
+}
+
+#main-advice-container {
+  background-color: #1f2821;
+  border: 5px solid white;
+  width: 90%;
+  height: 200px;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-family: "Rubik", sans-serif;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+
+
+.plan {
+  height: 450px;
+  width: 400px;
+  background-color: #1f2821;
+  border: 5px solid white;
+  border-radius: 50px;
+}
+
+.no-display {
+  display: none;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+#return-top-btn {
+  border-style: none;
+  background-color: #5a554c;
+
+  border: 5px solid white;
+  border-radius: 40px;
+  color: white;
+  padding: 25px;
+  font-family: "Rubik", sans-serif;
+  font-size: 25px;
+}
+
+.plan-button {
+  border-style: none;
+  background-color: #5a554c;
+  padding: 20px;
+  border: 5px solid white;
+  border-radius: 40px;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-size: 22px;
+}
+
+.plan-button:hover {
+  background-color: #39352d;
+}
+
+#advice-container {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 300px;
+  background-color: #1f2821;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.plan-form {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 20px 50px;
+  height: 280px;
+}
+
+.form-topic {
+  display: flex;
+  gap: 20px;
+  width: 350px;
+}
+
+.main-foodfacts-container {
+  width: 90%;
+  height: 550px;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.foodfacts-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.foodfacts {
+  width: 600px;
+  background-color: #a28d6c;
+  height: 460px;
+  border: 5px solid #ffebcd;
+
+
+}
+
+.single-food-info {
+  background-color: white;
+  margin: 20px;
+  margin-top: 0;
+  width: 550px;
+  height: 460px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+}
+
+.nutrition-facts-title {
+  font-size: 30px;
+  font-weight: 600;
+  font-family: "Rubik", sans-serif;
+  margin-top: 10px;
+  text-decoration: underline;
+
+
+}
+
+.nutrition-facts-text {
+  font-family: "Rubik", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#food-submit-form {
+  background-color: #1f2821;
+  border: 5px solid white;
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  justify-content: flex-start;
+  gap: 10px;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  height: 30px;
+}
+
+
+
+.food-single-container {
+  width: 98%;
+  background-color: #9e9484;
+  border: 5px solid black;
+  min-height: 70px;
+  max-height: 70px;
+  margin: none;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  position: relative;
+}
+
+.food-single-container:hover {
+  background-color: #666054;
+}
+
+#added-up-foods-container {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.food-title {
+  margin-left: 30px;
+  font-size: 28px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.food-calories {
+  position: absolute;
+  left: 300px;
+  width: fit-content;
+  font-size: 27px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+}
+
+.delete-food-btn {
+  position: absolute;
+  left: 520px;
+  width: 45px;
+  height: fit-content;
+  background-color: rgb(222, 69, 69);
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 25px;
+  padding: 5px;
+
+}
+
+.delete-food-btn:hover {
+  background-color: rgb(152, 13, 13)
+}
+
+#calorie-sum {
+  white-space: pre;
+  position: left;
+  margin-left: 20px;
+  color: black;
+  font-size: 30px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700;
+  width: 100%;
+
+}
+
+#info-btn {
+  opacity: 0;
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border-radius: 35px;
+  border: 4px solid #ffebcd;
+  color: #ffebcd;
+  background-color: transparent;
+  font-weight: 600;
+  font-size: 30px;
+  font-family: "Playfair Display", serif;
+  animation: fadeIn 2s 4s forwards;
+}
+
+#info-btn:hover {
+  background-color: darkgray;
+}
+
+.plan-container {
+  margin-top: 20px;
+  color: white;
+  width: 90%;
+  height: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+}
+
+.daily-plan-container {
+  border: 5px solid white;
+  width: 360px;
+  height: 380px;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: #1f2821;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-questions {
+  margin: none;
+  padding: none;
+  height: 300px;
+  margin-top: 3px;
+
+}
+
+.form-responses {
+  margin: none;
+  padding: none;
+  height: 300px;
+}
+
+
+.form-questions label {
+  height: 25px;
+  padding: none;
+  margin: none;
+}
+
+.form-responses input {
+  height: 25px;
+  font-size: 20px;
+  width: 160px;
+  padding: none;
+  margin: none;
+}
+
+.form-responses select {
+  font-family: 'Rubik', sans-serif;
+  margin-top: 3px;
+  margin-bottom: 2px;
+  font-size: 20px;
+  height: 25px;
+  width: 160px;
+  padding: none;
+  margin: none;
+}
+
+
+.info-container {
+  width: 880px;
+  height: 200px;
+  background-color: #1f2821;
+  border-radius: 45px;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-size: 25px;
+  padding: 20px;
+  align-items: center;
+  text-align: center;
+
+}
