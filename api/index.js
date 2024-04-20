@@ -4,18 +4,20 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import { chatGPTApiKey, foodDataApiKey } from "./config.js"
+// import { chatGPTApiKey, foodDataApiKey } from "../config.js"
 import axios from "axios";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-
+const chatGPTApiKey = process.env.GPT_Key;
+const foodDataApiKey = process.env.Food_Key;
 
 const openai = new OpenAI({
   apiKey: `${chatGPTApiKey}`
 });
 
 const app = express();
+
 app.use(express.static('public'));
 
 const port = 3000;
@@ -112,9 +114,8 @@ app.post('/nutrition', async (req, res) => {
 
 
 
+// app.listen(port, () => {
+//   console.log(`Listening on port ${port}`);
+// });
 
-
-
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+export default app
