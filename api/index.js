@@ -103,7 +103,7 @@ app.post('/nutrition', async (req, res) => {
 
   try {
     const response = await axios.get(apiUrl, {
-      headers: { 'X-Api-Key': 'Z8Fy/O9vYf4/0e3wOZ7Ajg==UEkCSnkPvTW3XeMu' },
+      headers: { 'X-Api-Key': `${foodDataApiKey}` },
     });
 
     res.json(response.data);
